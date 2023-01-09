@@ -1,0 +1,11 @@
+{
+	"compilerOptions": {
+		"watch": true,
+		"target": "ES2017",
+		"module": "commonjs",
+		"outDir": "build",
+		"strict": true,
+		"esModuleInterop": true
+	},
+	"include": ["src/**/*", "src/server.tsr.tssrc/server.tserver.ts", "app.ts", "app.ts", "src/test/product.test.ts", "src/test/.user.test.ts", "src/test/.user.test.ts", "src/test/.product.test.ts", "src/test/.product.test.ts"]
+}
