@@ -1,6 +1,6 @@
+import { List } from "../models/list.model";
 import { Request, Response, NextFunction } from "express";
 import { Types } from "mongoose";
-import { List } from "../models/list.model";
 
 export async function validateList(req: Request, res: Response, next: NextFunction) {
 	try {

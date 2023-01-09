@@ -2,8 +2,8 @@ import Validator from "validator";
 
 export function validateRegisterInput(data: any) {
 	let errors: any = {};
-	data.name = !data.name ? "" : data.name;
 	data.email = !data.email ? "" : data.email;
+	data.name = !data.name ? "" : data.name;
 	data.password = !data.password ? "" : data.password;
 	data.password2 = !data.password2 ? "" : data.password2;
 

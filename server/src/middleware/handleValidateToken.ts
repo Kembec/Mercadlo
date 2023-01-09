@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import jwt from "jsonwebtoken";
 import { Types } from "mongoose";
+import jwt from "jsonwebtoken";
 
 export function validateToken(req: Request, res: Response, next: NextFunction) {
 	try {

@@ -4,17 +4,17 @@ import { IUserModel } from "../interfaces/models/user.interface";
 
 const UserModel = new mongoose.Schema({
 	name: {
-		type: String,
 		required: true,
+		type: String,
 	},
 	email: {
-		type: String,
 		required: true,
+		type: String,
 		unique: true,
 	},
 	password: {
-		type: String,
 		required: true,
+		type: String,
 	},
 });
 

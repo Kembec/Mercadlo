@@ -4,9 +4,10 @@ import { IProductModel } from "../interfaces/models/product.interface";
 
 const ProductModel = new mongoose.Schema({
 	list_id: { 
-		type: mongoose.Schema.Types.ObjectId,
 		ref: "List",
-		required: true },
+		required: true,
+		type: mongoose.Schema.Types.ObjectId,
+	},
 	name: { type: String, required: true },
 	price: { type: Number, required: true },
 });

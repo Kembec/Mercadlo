@@ -2,12 +2,12 @@ import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import { userRoutes } from "./src/routes/user.routes";
-import { productRoutes } from "./src/routes/product.routes";
-import { listRoutes } from "./src/routes/list.routes";
-import { handleCORS } from "./src/middleware/handleCORS";
 import { handle404 } from "./src/middleware/handle404";
+import { handleCORS } from "./src/middleware/handleCORS";
 import { handleErrors } from "./src/middleware/handleErrors";
+import { listRoutes } from "./src/routes/list.routes";
+import { productRoutes } from "./src/routes/product.routes";
+import { userRoutes } from "./src/routes/user.routes";
 
 dotenv.config();
 const result = dotenv.config();

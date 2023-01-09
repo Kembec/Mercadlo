@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { List } from "../models/list.model";
-import { Product } from "../models/product.model";
 
 export class ListController {
 	// Get all lists

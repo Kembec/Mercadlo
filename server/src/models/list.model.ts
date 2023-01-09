@@ -4,14 +4,14 @@ import { IListModel } from "../interfaces/models/list.interface";
 const listSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	user_id: { 
-		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
 		required: true },
+		type: mongoose.Schema.Types.ObjectId,
 	items: [
 		{
-			type: mongoose.Schema.Types.ObjectId,
 			ref: "Product",
 			required: false,
+			type: mongoose.Schema.Types.ObjectId,
 		},
 	],
 });
