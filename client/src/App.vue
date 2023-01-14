@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Notification from './shared/components/NotificationComponent.vue';
 import Navbar from './shared/components/NavbarComponent.vue';
 
 </script>
@@ -6,6 +7,7 @@ import Navbar from './shared/components/NavbarComponent.vue';
 <template>
     <Navbar />
     <RouterView class="router-data" />
+    <Notification />
 </template>
 <style lang="postcss" scoped>
     .router-data {
