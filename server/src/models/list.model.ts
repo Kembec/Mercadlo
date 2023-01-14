@@ -5,8 +5,8 @@ const listSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	user_id: { 
 		ref: "User",
-		required: true },
 		type: mongoose.Schema.Types.ObjectId,
+	required: true },
 	items: [
 		{
 			ref: "Product",
