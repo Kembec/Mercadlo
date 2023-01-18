@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import { handle404 } from "./src/middleware/handle404";
 import { handleCORS } from "./src/middleware/handleCORS";
 import { handleErrors } from "./src/middleware/handleErrors";
@@ -25,6 +26,7 @@ mongoose.connect(process.env.MONGO_URI ?? "");
 // Enable body parser to parse request body
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 // Enable CORS
 app.use(handleCORS);

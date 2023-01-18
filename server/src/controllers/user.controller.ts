@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { User } from "../models/user.model";
 import { validateRegisterInput, validateLoginInput } from "../validators/user.validator";
+import useCreateToken from "../composables/useCreateToken";
 
 export class UserController {
 	// Register a new user
@@ -52,19 +52,19 @@ export class UserController {
 		// Check if the email exists
 		const user = await User.findOne({ email: req.body.email });
 		if (!user) {
-			return res.status(404).json({message: "Invalid email or password"});
+			return res.status(404).json({ message: "Invalid email or password" });
 		}
 
 		// Check if the password is correct
 		const isMatch = await bcrypt.compare(req.body.password, user.password);
 		if (!isMatch) {
-			return res.status(404).json({message: "Invalid email or password"});
+			return res.status(404).json({ message: "Invalid email or password" });
 		}
 
 		// Create a JWT
-		const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY!, {
-			expiresIn: "1h",
-		});
+		const token = await useCreateToken(user);
+
+		res.cookie("token", token, { httpOnly: true });
 
 		// Return the token
 		res.status(200).json({ token });
