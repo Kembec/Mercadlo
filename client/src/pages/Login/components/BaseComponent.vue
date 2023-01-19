@@ -24,8 +24,8 @@
 <template>
 	<form @submit.prevent="newLogin">
 		<slot />
-		<NiceInput icon="at" v-model:model="email" placeholder="E-mail" :type="InputTypes.EMAIL" :required="true" />
-		<NiceInput icon="key" v-model:model="password" placeholder="Password" :type="InputTypes.PASSWORD" :required="true" />
+		<NiceInput class="mb-5" icon="at" v-model:model="email" placeholder="E-mail" :type="InputTypes.EMAIL" :required="true" />
+		<NiceInput class="mb-5" icon="key" v-model:model="password" placeholder="Password" :type="InputTypes.PASSWORD" :required="true" />
 		<button type="submit" class="base-submit">Login</button>
 		<div class="bottom">
 			<button @click.prevent="emit('changeView', 'Register')" class="register"> Register now </button>

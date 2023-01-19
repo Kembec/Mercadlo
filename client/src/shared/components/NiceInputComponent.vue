@@ -7,7 +7,7 @@
 	//Interfaces
 	export interface Props {
 		icon: IconName;
-		model: string;
+		model: string | Number;
 		placeholder: string;
 		type?: InputTypes;
 		required?: boolean;
@@ -49,7 +49,7 @@
 </template>
 <style lang="postcss" scoped>
 	.nice-input {
-		@apply mb-5 flex flex-nowrap rounded-md border border-black/5 text-gray-500;
+		@apply flex flex-nowrap rounded-md border border-black/5 text-gray-500;
 	}
 	.nice-input > * {
 		@apply p-3;
