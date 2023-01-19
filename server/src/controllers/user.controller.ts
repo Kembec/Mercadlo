@@ -62,11 +62,10 @@ export class UserController {
 		}
 
 		// Create a JWT
-		const token = await useCreateToken(user);
-
-		res.cookie("token", token, { httpOnly: true });
+		const token = useCreateToken(user);
+		res.cookie("token", token, { httpOnly: true, maxAge: 60 * 60 * 1000, });
 
 		// Return the token
-		res.status(200).json({ token });
+		res.status(200).json({ message: "Login successful" });
 	}
 }

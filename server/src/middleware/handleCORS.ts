@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from "express";
+import cors from 'cors';
 
 export function handleCORS(req: Request, res: Response, next: NextFunction) {
-	res.header("Access-Control-Allow-Origin", "*");
-	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-	if (req.method === "OPTIONS") {
-		res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-		return res.status(200).json({});
-	}
-	next();
+    cors({
+        origin: process.env.FRONTEND_URL,
+        credentials: true,
+    })(req, res, next);
 }

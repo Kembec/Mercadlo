@@ -42,7 +42,6 @@ app.use(handle404);
 // Handle errors
 app.use(handleErrors);
 
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== "test") {
 	app.listen(process.env.NODE_PORT, () => console.log(`Listening on port ${process.env.NODE_PORT}`));
 }
-
