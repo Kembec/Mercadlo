@@ -8,8 +8,8 @@ export const handleToken: NavigationGuard = async (
 ): Promise<void> => {
 	try {
 		const token = Cookies.get("_token");
-		if (!token) {
-			return next("/login");
+		if (!token && to.path != "/login") {
+			return next("login");
 		} else if (token && to.path === "/login") {
 			return next("/");
 		}
