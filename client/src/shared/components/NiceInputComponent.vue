@@ -7,7 +7,7 @@
 	//Interfaces
 	export interface Props {
 		icon: IconName;
-		model: string | Number;
+		model: string | number;
 		placeholder: string;
 		type?: InputTypes;
 		required?: boolean;
