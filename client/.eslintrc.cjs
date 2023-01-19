@@ -1,0 +1,40 @@
+module.exports = {
+	root: true,
+	parser: "vue-eslint-parser",
+	parserOptions: {
+		parser: "@typescript-eslint/parser",
+	},
+	extends: ["plugin:vue3/recommended", "eslint:recommended", "@vue/typescript/recommended", "prettier"],
+	plugins: ["@typescript-eslint", "prettier", "simple-import-sort"],
+	rules: {
+		"prettier/prettier": [
+			"error",
+			{
+				arrowParens: "always",
+				bracketSpacing: true,
+				embeddedLanguageFormatting: "auto",
+				htmlWhitespaceSensitivity: "strict",
+				insertPragma: false,
+				jsxBracketSameLine: true,
+				jsxSingleQuote: true,
+				printWidth: 150,
+				proseWrap: "preserve",
+				quoteProps: "as-needed",
+				requirePragma: false,
+				semi: true,
+				singleQuote: false,
+				tabWidth: 4,
+				trailingComma: "es5",
+				useTabs: true,
+				vueIndentScriptAndStyle: true,
+			},
+		],
+		"simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error",
+	},
+	env: {
+		browser: true,
+		amd: true,
+		node: true,
+	},
+};
