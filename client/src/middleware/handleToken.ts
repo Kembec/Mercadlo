@@ -9,7 +9,7 @@ export const handleToken: NavigationGuard = async (
 	try {
 		const token = Cookies.get("_token");
 		if (!token && to.path != "/login") {
-			return next("login");
+			return next("/login");
 		} else if (token && to.path === "/login") {
 			return next("/");
 		}
