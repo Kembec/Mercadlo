@@ -8,6 +8,5 @@ export default (user: { _id: string }): string => {
 
 	return jwt.sign({ id: user._id }, privateKey, {
 		algorithm: "RS256",
-		expiresIn: "1h",
 	});
 };
