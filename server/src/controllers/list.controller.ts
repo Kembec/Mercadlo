@@ -31,7 +31,6 @@ export class ListController {
 			const newList = new List({
 				user_id: req.body.user_id,
 				name: req.body.name,
-				items: [],
 			});
 			const savedList = await newList.save();
 			res.status(201).json(savedList);

@@ -26,7 +26,6 @@ describe("List routes", () => {
 		// console.log(TOKEN);
 
 		list = new List({
-			items: [],
 			name: "List Test",
 			user_id: user._id,
 		});
@@ -35,7 +34,6 @@ describe("List routes", () => {
 		newList = {
 			__v: list.__v,
 			_id: list._id.toString(),
-			items: list.items,
 			name: list.name,
 			user_id: list.user_id.toString(),
 		}
@@ -85,7 +83,6 @@ describe("List routes", () => {
 			expect(res.body).toEqual({
 				__v: expect.any(Number),
 				_id: expect.any(String),
-				items: [],
 				name: "Weekend list",
 				user_id: user._id.toString(),
 			});
@@ -111,7 +108,6 @@ describe("List routes", () => {
 			expect(res.body).toEqual({
 				__v: expect.any(Number),
 				_id: expect.any(String),
-				items: [],
 				name: "Weekly grocery list",
 				user_id: user._id.toString(),
 			});
@@ -132,9 +128,7 @@ describe("List routes", () => {
 		it("should return a 422 if the list is invalid", async () => {
 			const res = await request(app)
 				.put(`/lists/${list._id}`)
-				.send({
-					items: [{ name: "Apple", price: 0.99 }],
-				}).set('Cookie', `token=${TOKEN}`);
+				.send({}).set('Cookie', `token=${TOKEN}`);
 
 			expect(res.status).toBe(422);
 			expect(res.body).toEqual({ message: "Invalid list" });

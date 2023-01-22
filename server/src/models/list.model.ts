@@ -7,13 +7,6 @@ const listSchema = new mongoose.Schema({
 		ref: "User",
 		type: mongoose.Schema.Types.ObjectId,
 	required: true },
-	items: [
-		{
-			ref: "Product",
-			required: false,
-			type: mongoose.Schema.Types.ObjectId,
-		},
-	],
 });
 
 export const List: Model<IListModel> = mongoose.model<IListModel>("List", listSchema);

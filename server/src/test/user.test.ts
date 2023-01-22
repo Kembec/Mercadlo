@@ -72,7 +72,7 @@ describe("User routes", () => {
 			});
 
 			expect(res.status).toBe(200);
-			expect(res.body).toEqual({
+			expect(res.body).toEqual({ 
 				token: expect.any(String),
 			});
 		});

@@ -28,7 +28,6 @@ describe("Product routes", () => {
 		TOKEN = useCreateToken(user);
 
 		list = new List({
-			items: [],
 			name: "List Test",
 			user_id: user._id,
 		});
