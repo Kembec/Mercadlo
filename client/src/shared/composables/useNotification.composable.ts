@@ -1,4 +1,4 @@
-import { useNotification } from "@/stores/notification";
+import { useNotification } from "@/stores/notification.store";
 
 //Pinia
 const notificationStore = useNotification();

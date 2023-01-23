@@ -1,8 +1,9 @@
 <script setup lang="ts">
-	import { ref } from "vue";
 	import { InputTypes } from "@/shared/data/InputTypes";
 	import { login } from "../composables/useLogin.composable";
+	import { ref } from "vue";
 	import NiceInput from "@/shared/components/NiceInputComponent.vue";
+	import router from "@/router";
 
 	//Interfaces
 	export interface EmitChangeView {
@@ -18,7 +19,11 @@
 
 	//Methods
 	const newLogin = async (): Promise<void> => {
-		await login(email.value, password.value);
+		const l = await login(email.value, password.value);
+		console.log(l);
+		if(l) {
+			router.push({ name: 'home' })
+		}
 	};
 </script>
 <template>

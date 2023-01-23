@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { storeToRefs } from "pinia";
-	import { useNotification } from "@/stores/notification";
+	import { useNotification } from "@/stores/notification.store";
 
 	//Pinia
 	const notificationStore = useNotification();

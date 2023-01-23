@@ -1,21 +1,32 @@
 import type { AxiosError } from "axios";
+import { useUser } from "@/stores/user.store";
 import newNotification from "@/shared/composables/useNotification.composable";
 import api from "@/shared/api/api";
 
-export const login = async (email: string, password: string): Promise<void> => {
+//Pinia
+export const login = async (email: string, password: string): Promise<boolean> => {
 	try {
 		const validatorError = validator(email, password);
 		if (validatorError) {
 			throw new Error(validatorError);
 		}
 		const { data } = await api.post(`users/login`, { email, password });
-		if (!data.token) {
+		console.log(data);
+		if (!data._id) {
 			throw new Error("Error with server");
 		}
+
+		const userStore = useUser();
+		const { newUser } = userStore;
+		newUser(data);
+
+		return true;
 	} catch (e) {
+		console.log(e);
 		let res = (e as AxiosError).response;
 		let error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
+		return false;
 	}
 };
 

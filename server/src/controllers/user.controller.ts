@@ -68,7 +68,13 @@ export class UserController {
 		res.cookie("_token", "_", { maxAge: time });
 
 		// Return the token
-		res.status(200).json({ message: "Login successful" });
+		const data = {
+			message: "Login successful",
+			_id: user._id,
+			name: user.name,
+			email: user.email,
+		}
+		res.status(200).json(data);
 	}
 	// Logout a user
 	public static logout(req: Request, res: Response) {
