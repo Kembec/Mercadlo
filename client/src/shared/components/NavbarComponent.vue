@@ -24,9 +24,14 @@
 		<div class="logo"> mercadlo </div>
 		<div>
 			<div class="user" v-if="getUser">
-				<button @click="showDropDown = !showDropDown">
-					<font-awesome-icon icon="user" />
-				</button>
+				<div>
+					<span>
+						{{ getUser.name }}
+					</span>
+					<button @click="showDropDown = !showDropDown">
+						<font-awesome-icon icon="user" />
+					</button>
+				</div>
 				<ul v-if="showDropDown">
 					<li @click="newLogout">Log out</li>
 				</ul>
@@ -42,12 +47,15 @@
 		@apply select-none text-3xl font-bold text-blue-600 antialiased drop-shadow-md;
 	}
 	.user {
-		@apply relative my-auto flex flex-col px-5;
+		@apply relative my-auto flex flex-col;
 	}
-	.user > button {
+	.user > div {
+		@apply flex flex-nowrap space-x-3 items-center;
+	}
+	.user > div > button {
 		@apply relative h-10 w-10 rounded-full border border-black/5 bg-gray-50 text-gray-800 drop-shadow-sm;
 	}
-	.user > button > svg {
+	.user > div > button > svg {
 		@apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 	}
 	.user > ul {
