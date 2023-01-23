@@ -13,6 +13,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
 	faAt,
+	faBell,
 	faBox,
 	faChevronDown,
 	faChevronLeft,
@@ -27,7 +28,23 @@ import {
 	faTrash,
 	faUser,
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faUser, faKey, faChevronLeft, faAt, faEye, faEyeSlash, faPlus, faTrash, faPencil, faChevronDown, faChevronUp, faDollar, faBox, faTimes);
+library.add(
+	faUser,
+	faKey,
+	faChevronLeft,
+	faAt,
+	faEye,
+	faEyeSlash,
+	faPlus,
+	faTrash,
+	faPencil,
+	faChevronDown,
+	faChevronUp,
+	faDollar,
+	faBox,
+	faTimes,
+	faBell
+);
 
 // Components
 app.component("font-awesome-icon", FontAwesomeIcon);
