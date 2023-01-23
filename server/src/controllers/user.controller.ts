@@ -64,10 +64,16 @@ export class UserController {
 		// Create a JWT
 		const token = useCreateToken(user);
 		const time = 6 * 60 * 60 * 1000;
-		res.cookie("token", token, { httpOnly: true, maxAge: time, });
-		res.cookie("_token", "_", { maxAge: time, });
+		res.cookie("token", token, { httpOnly: true, maxAge: time });
+		res.cookie("_token", "_", { maxAge: time });
 
 		// Return the token
 		res.status(200).json({ message: "Login successful" });
+	}
+	// Logout a user
+	public static logout(req: Request, res: Response) {
+		res.clearCookie("token");
+		res.clearCookie("_token");
+		res.status(200).json({ message: "Logout successful" });
 	}
 }

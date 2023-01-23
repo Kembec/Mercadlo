@@ -9,4 +9,7 @@ router.post("/register", UserController.register);
 // Login a user
 router.post("/login", UserController.login);
 
+// Logout a user
+router.post("/logout", UserController.logout);
+
 export const userRoutes = router;
