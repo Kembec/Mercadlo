@@ -71,11 +71,11 @@
 			<div class="responsive">
 				{{ n + 1 }}
 			</div>
-			<input v-if="updateId == item._id" v-model="item.name" class="col-span-4" />
+			<input v-if="updateId == item._id" id="name" v-model="item.name" class="col-span-4" />
 			<div v-else class="col-span-4">
 				{{ item.name }}
 			</div>
-			<input v-if="updateId == item._id" v-model.number="item.price" class="col-span-4" />
+			<input v-if="updateId == item._id" id="price" v-model.number="item.price" class="col-span-4" />
 			<div v-else class="col-span-4">
 				{{ formatter.format(item.price) }}
 			</div>
