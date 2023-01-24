@@ -1,12 +1,13 @@
 <script setup lang="ts">
-	import { ref } from "vue";
 	import { storeToRefs } from "pinia";
+	import { ref } from "vue";
+
 	import { useUser } from "@/stores/user.store";
 
 	//Pinia
 	const userStore = useUser();
 	const { getUser } = storeToRefs(userStore);
-	
+
 	//Data
 	const showDropDown = ref<boolean>(false);
 
@@ -14,7 +15,7 @@
 	const newLogout = async () => {
 		const { logout } = await import("../composables/useLogout.composable");
 		const l = await logout();
-		if(l) {
+		if (l) {
 			location.reload();
 		}
 	};
@@ -23,7 +24,7 @@
 	<nav>
 		<div class="logo"> mercadlo </div>
 		<div>
-			<div class="user" v-if="getUser">
+			<div v-if="getUser" class="user">
 				<div>
 					<span>
 						{{ getUser.name }}
@@ -50,7 +51,7 @@
 		@apply relative my-auto flex flex-col;
 	}
 	.user > div {
-		@apply flex flex-nowrap space-x-3 items-center;
+		@apply flex flex-nowrap items-center space-x-3;
 	}
 	.user > div > button {
 		@apply relative h-10 w-10 rounded-full border border-black/5 bg-gray-50 text-gray-800 drop-shadow-sm;

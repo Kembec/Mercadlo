@@ -1,5 +1,5 @@
-import type { RouteLocationNormalized, NavigationGuard } from "vue-router";
 import Cookies from "js-cookie";
+import type { NavigationGuard, RouteLocationNormalized } from "vue-router";
 
 export const handleToken: NavigationGuard = async (
 	to: RouteLocationNormalized,

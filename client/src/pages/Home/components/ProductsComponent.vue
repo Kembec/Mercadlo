@@ -1,6 +1,8 @@
 <script setup lang="ts">
-	import { ref, defineProps, onBeforeMount, computed } from "vue";
+	import { computed, defineProps, onBeforeMount, ref } from "vue";
+
 	import NiceInput from "@/shared/components/NiceInputComponent.vue";
+
 	import type { IProduct } from "../interfaces/product.interface";
 
 	//Interfaces
@@ -41,10 +43,10 @@
 		const { getProducts } = await import("../composables/useCRUDProduct.composable");
 		products.value = await getProducts(props.listId);
 	};
-	const _updateProduct = async (id: string, name:string, price: number): Promise<void> => {
+	const _updateProduct = async (id: string, name: string, price: number): Promise<void> => {
 		const { updateProduct } = await import("../composables/useCRUDProduct.composable");
 		await updateProduct(props.listId, id, name, price);
-        updateId.value = "";
+		updateId.value = "";
 		await _getProducts();
 	};
 	const _deleteProduct = async (id: string): Promise<void> => {
@@ -65,24 +67,26 @@
 			<b class="col-span-4">Price</b>
 			<b class="col-span-2">Actions</b>
 		</div>
-		<div v-for="(item, n) in products" :key="n" class="item">
+		<div v-for="(item, n) in products" id="product" :key="n" class="item">
 			<div class="responsive">
 				{{ n + 1 }}
 			</div>
-			<input v-model="item.name" class="col-span-4" v-if="updateId == item._id" />
-			<div class="col-span-4" v-else>
+			<input v-if="updateId == item._id" v-model="item.name" class="col-span-4" />
+			<div v-else class="col-span-4">
 				{{ item.name }}
 			</div>
-			<input v-model.number="item.price" class="col-span-4" v-if="updateId == item._id" />
-			<div class="col-span-4" v-else>
+			<input v-if="updateId == item._id" v-model.number="item.price" class="col-span-4" />
+			<div v-else class="col-span-4">
 				{{ formatter.format(item.price) }}
 			</div>
 			<div class="buttons">
-				<button class="update" v-if="updateId == item._id" @click="_updateProduct(item._id, item.name, item.price)"> Update </button>
-				<button @click="_deleteProduct(item._id)">
+				<button v-if="updateId == item._id" id="update-product" class="update" @click="_updateProduct(item._id, item.name, item.price)">
+					Update
+				</button>
+				<button id="delete-product" @click="_deleteProduct(item._id)">
 					<font-awesome-icon icon="trash" />
 				</button>
-				<button @click="updateId = updateId != item._id ? item._id : ''">
+				<button id="show-update" @click="updateId = updateId != item._id ? item._id : ''">
 					<font-awesome-icon icon="pencil" />
 				</button>
 			</div>
@@ -92,8 +96,8 @@
 			<b class="col-span-4">{{ formatter.format(totalProduct) }}</b>
 		</div>
 		<form class="add-product" @submit.prevent="_addProduct()">
-			<NiceInput icon="box" v-model:model="newProduct.name" placeholder="Name" :required="true" />
-			<NiceInput icon="dollar" v-model:model="newProduct.price" placeholder="Price" :required="true" />
+			<NiceInput id="new-product-name" v-model:model="newProduct.name" icon="box" placeholder="Name" :required="true" />
+			<NiceInput id="new-product-price" v-model:model="newProduct.price" icon="dollar" placeholder="Price" :required="true" />
 			<button type="submit">Add Product</button>
 		</form>
 	</div>

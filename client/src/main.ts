@@ -1,16 +1,15 @@
-import { createApp } from "vue";
+import "./assets/main.css";
+
 import { createPinia } from "pinia";
+import { createApp } from "vue";
 
 import App from "./App.vue";
 import router from "./router";
-
-import "./assets/main.css";
 
 const app = createApp(App);
 
 // Fontawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
 	faAt,
 	faBell,
@@ -28,6 +27,7 @@ import {
 	faTrash,
 	faUser,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 library.add(
 	faUser,
 	faKey,
@@ -47,7 +47,7 @@ library.add(
 );
 
 // Components
-app.component("font-awesome-icon", FontAwesomeIcon);
+app.component("FontAwesomeIcon", FontAwesomeIcon);
 
 app.use(createPinia());
 app.use(router);

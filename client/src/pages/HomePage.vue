@@ -1,5 +1,6 @@
 <script setup lang="ts">
-	import { ref, onBeforeMount, defineAsyncComponent } from "vue";
+	import { defineAsyncComponent, onBeforeMount, ref } from "vue";
+
 	import Products from "./Home/components/ProductsComponent.vue";
 	import type { IList } from "./Home/interfaces/list.interfaces";
 
@@ -15,7 +16,7 @@
 	//Mounted
 	onBeforeMount(async () => {
 		await _getLists();
-		if(lists.value && lists.value[0]) {
+		if (lists.value && lists.value[0]) {
 			showProducts.value = lists.value[0]._id;
 		}
 	});
@@ -47,26 +48,26 @@
 	<div class="home">
 		<div class="content">
 			<h2>Lists</h2>
-			<div v-for="(l, i) in lists" class="list-group" :key="i">
+			<div v-for="(l, i) in lists" :key="i" class="list-group">
 				<div class="list">
-					<input v-if="listId == l._id" v-model="l.name" class="name" v-focus />
-					<div class="name" v-else>
+					<input v-if="listId == l._id" id="new-list-name" v-model="l.name" v-focus class="name" />
+					<div v-else class="name">
 						{{ l.name }}
 					</div>
 					<div class="buttons">
-						<button v-if="listId == l._id" class="update" @click="_updateList(l._id, l.name)"> Update </button>
-						<button @click="_deleteLists(l._id)">
+						<button v-if="listId == l._id" id="update-list" class="update" @click="_updateList(l._id, l.name)"> Update </button>
+						<button id="delete-list" @click="_deleteLists(l._id)">
 							<font-awesome-icon icon="trash" />
 						</button>
-						<button @click="listId = listId != l._id ? l._id : ''">
+						<button id="show-update" @click="listId = listId != l._id ? l._id : ''">
 							<font-awesome-icon icon="pencil" />
 						</button>
-						<button @click="showProducts = showProducts != l._id ? l._id : ''">
+						<button id="display-products" @click="showProducts = showProducts != l._id ? l._id : ''">
 							<font-awesome-icon :icon="showProducts == l._id ? 'chevron-up' : 'chevron-down'" />
 						</button>
 					</div>
 				</div>
-				<Products v-if="showProducts == l._id" :listId="l._id" />
+				<Products v-if="showProducts == l._id" :list-id="l._id" />
 			</div>
 		</div>
 		<div class="sidebar">
@@ -75,7 +76,7 @@
 				<font-awesome-icon icon="plus" />
 				<span>New List </span>
 			</button>
-			<NewList v-if="showNewlist" @getLists="_getLists" />
+			<NewList v-if="showNewlist" @get-lists="_getLists" />
 		</div>
 	</div>
 </template>

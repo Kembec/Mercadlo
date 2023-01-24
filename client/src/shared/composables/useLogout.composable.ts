@@ -1,6 +1,7 @@
 import type { AxiosError } from "axios";
-import newNotification from "@/shared/composables/useNotification.composable";
+
 import api from "@/shared/api/api";
+import newNotification from "@/shared/composables/useNotification.composable";
 
 export const logout = async (): Promise<boolean> => {
 	try {
@@ -11,8 +12,8 @@ export const logout = async (): Promise<boolean> => {
 		localStorage.removeItem("user");
 		return true;
 	} catch (e) {
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return false;
 	}

@@ -1,7 +1,8 @@
 import type { AxiosError } from "axios";
-import { useUser } from "@/stores/user.store";
-import newNotification from "@/shared/composables/useNotification.composable";
+
 import api from "@/shared/api/api";
+import newNotification from "@/shared/composables/useNotification.composable";
+import { useUser } from "@/stores/user.store";
 
 //Pinia
 export const login = async (email: string, password: string): Promise<boolean> => {
@@ -23,15 +24,16 @@ export const login = async (email: string, password: string): Promise<boolean> =
 		return true;
 	} catch (e) {
 		console.log(e);
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return false;
 	}
 };
 
 const validator = (email: string, password: string): string | undefined => {
-	const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	const regex =
+		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 	if (!email) {
 		return "Email is required";
 	}

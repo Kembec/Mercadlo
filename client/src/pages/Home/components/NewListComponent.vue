@@ -1,5 +1,6 @@
 <script setup lang="ts">
 	import { ref } from "vue";
+
 	import { addList } from "../composables/useCRUDList.composable";
 
 	//Interfaces
@@ -26,7 +27,7 @@
 <template>
 	<form class="new-list" @submit.prevent="newList()">
 		<h2>New List</h2>
-		<input type="text" v-model="name" placeholder="Name of list" />
+		<input id="list-name" v-model="name" type="text" placeholder="Name of list" />
 		<button>Add</button>
 	</form>
 </template>

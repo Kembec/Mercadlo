@@ -1,5 +1,6 @@
-import { ref, computed, onBeforeMount } from "vue";
 import { defineStore } from "pinia";
+import { computed, onBeforeMount, ref } from "vue";
+
 import type { IUser } from "./interfaces/user.interface";
 
 export const useUser = defineStore("user", () => {

@@ -1,5 +1,5 @@
-import { ref, computed } from "vue";
 import { defineStore } from "pinia";
+import { computed, ref } from "vue";
 
 export const useNotification = defineStore("notification", () => {
 	//State

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-	import { computed, ref, defineAsyncComponent } from "vue";
+	import { computed, defineAsyncComponent, ref } from "vue";
+
 	import type { ILoginComponent } from "./Login/interfaces/loginComponent.interface";
 
 	//Data
@@ -30,9 +31,9 @@
 <template>
 	<div id="login">
 		<div class="content">
-			<component :is="activeComponent.component" class="form" @changeView="changeView">
+			<component :is="activeComponent.component" class="form" @change-view="changeView">
 				<div class="head">
-					<button v-if="view != 'Base'" @click="view = 'Base'" class="to-base">
+					<button v-if="view != 'Base'" class="to-base" @click="view = 'Base'">
 						<font-awesome-icon icon="chevron-left" />
 					</button>
 					<h1>{{ activeComponent.title }}</h1>
@@ -58,7 +59,7 @@
 		@apply mr-4 flex items-center text-xl text-gray-600 hover:text-gray-500;
 	}
 	.form {
-		@apply flex w-full flex-col justify-center bg-white p-7 lg:w-auto lg:p-10 lg:max-w-[30vw] xl:max-w-[20vw];
+		@apply flex w-full flex-col justify-center bg-white p-7 lg:w-auto lg:max-w-[30vw] lg:p-10 xl:max-w-[20vw];
 	}
 	.content {
 		@apply absolute left-1/2 top-1/2 flex w-[90vw] max-w-[95vw] -translate-x-1/2 -translate-y-1/2 flex-nowrap justify-center overflow-auto drop-shadow-md lg:w-[80vw] xl:w-[70vw];

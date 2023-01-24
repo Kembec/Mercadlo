@@ -4,7 +4,7 @@ module.exports = {
 	parserOptions: {
 		parser: "@typescript-eslint/parser",
 	},
-	extends: ["plugin:vue3/recommended", "eslint:recommended", "@vue/typescript/recommended", "prettier"],
+	extends: ["plugin:vue/vue3-recommended", "eslint:recommended", "@vue/typescript/recommended", "prettier"],
 	plugins: ["@typescript-eslint", "prettier", "simple-import-sort"],
 	rules: {
 		"prettier/prettier": [

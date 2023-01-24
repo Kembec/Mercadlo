@@ -1,8 +1,9 @@
+import type { AxiosError } from "axios";
+
 import api from "@/shared/api/api";
 import newNotification from "@/shared/composables/useNotification.composable";
-import type { AxiosError } from "axios";
-import type { IList } from "../interfaces/list.interfaces";
 
+import type { IList } from "../interfaces/list.interfaces";
 
 export const addList = async (name: string | undefined): Promise<boolean> => {
 	try {
@@ -16,25 +17,24 @@ export const addList = async (name: string | undefined): Promise<boolean> => {
 		newNotification("List added successfully");
 		return true;
 	} catch (e) {
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return false;
 	}
 };
 
-export const getLists = async () : Promise<IList[]> => {
+export const getLists = async (): Promise<IList[]> => {
 	try {
 		const { data } = await api.get("/lists");
 		return data;
 	} catch (e) {
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return [];
 	}
 };
-
 
 export const updateList = async (id: string, name: string): Promise<boolean> => {
 	try {
@@ -42,8 +42,8 @@ export const updateList = async (id: string, name: string): Promise<boolean> => 
 		newNotification("List added successfully");
 		return true;
 	} catch (e) {
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return false;
 	}
@@ -51,16 +51,16 @@ export const updateList = async (id: string, name: string): Promise<boolean> => 
 
 export const deleteList = async (id: string): Promise<boolean> => {
 	try {
-        const { data } = await api.delete(`/lists/${id}`);
-        if (!data.message) {
-            newNotification("There was a server error");
-            return false;
-        }
+		const { data } = await api.delete(`/lists/${id}`);
+		if (!data.message) {
+			newNotification("There was a server error");
+			return false;
+		}
 		newNotification("List removed successfully");
 		return true;
 	} catch (e) {
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return false;
 	}

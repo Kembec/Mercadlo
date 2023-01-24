@@ -1,9 +1,11 @@
 <script setup lang="ts">
-	import { InputTypes } from "@/shared/data/InputTypes";
-	import { login } from "../composables/useLogin.composable";
 	import { ref } from "vue";
-	import NiceInput from "@/shared/components/NiceInputComponent.vue";
+
 	import router from "@/router";
+	import NiceInput from "@/shared/components/NiceInputComponent.vue";
+	import { InputTypes } from "@/shared/data/InputTypes";
+
+	import { login } from "../composables/useLogin.composable";
 
 	//Interfaces
 	export interface EmitChangeView {
@@ -21,20 +23,28 @@
 	const newLogin = async (): Promise<void> => {
 		const l = await login(email.value, password.value);
 		console.log(l);
-		if(l) {
-			router.push({ name: 'home' })
+		if (l) {
+			router.push({ name: "home" });
 		}
 	};
 </script>
 <template>
 	<form @submit.prevent="newLogin">
 		<slot />
-		<NiceInput class="mb-5" icon="at" v-model:model="email" placeholder="E-mail" :type="InputTypes.EMAIL" :required="true" />
-		<NiceInput class="mb-5" icon="key" v-model:model="password" placeholder="Password" :type="InputTypes.PASSWORD" :required="true" />
+		<NiceInput id="email" v-model:model="email" class="mb-5" icon="at" placeholder="E-mail" :type="InputTypes.EMAIL" :required="true" />
+		<NiceInput
+			id="password"
+			v-model:model="password"
+			class="mb-5"
+			icon="key"
+			placeholder="Password"
+			:type="InputTypes.PASSWORD"
+			:required="true"
+		/>
 		<button type="submit" class="base-submit">Login</button>
 		<div class="bottom">
-			<button @click.prevent="emit('changeView', 'Register')" class="register"> Register now </button>
-			<button @click.prevent="emit('changeView', 'Forgot')" class="forgot"> Forgot password? </button>
+			<button class="register" @click.prevent="emit('changeView', 'Register')"> Register now </button>
+			<button class="forgot" @click.prevent="emit('changeView', 'Forgot')"> Forgot password? </button>
 		</div>
 	</form>
 </template>

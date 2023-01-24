@@ -1,4 +1,5 @@
 import type { AxiosError } from "axios";
+
 import api from "@/shared/api/api";
 import newNotification from "@/shared/composables/useNotification.composable";
 
@@ -15,15 +16,16 @@ export const register = async (name: string, email: string, password: string): P
 		newNotification("Registered user successfully.");
 		return true;
 	} catch (e) {
-		let res = (e as AxiosError).response;
-		let error = res ? (res.data as { message: string }).message : "";
+		const res = (e as AxiosError).response;
+		const error = res ? (res.data as { message: string }).message : "";
 		newNotification(error);
 		return false;
 	}
 };
 
 const validator = (name: string, email: string, password: string): string | undefined => {
-	const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+	const regex =
+		/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 	if (!name) {
 		return "Name is required";
 	}

@@ -1,8 +1,9 @@
 <script setup lang="ts">
+	import type { IconName } from "@fortawesome/fontawesome-common-types";
 	import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 	import { ref } from "vue";
+
 	import { InputTypes } from "@/shared/data/InputTypes";
-	import type { IconName } from "@fortawesome/fontawesome-common-types";
 
 	//Interfaces
 	export interface Props {
@@ -41,8 +42,8 @@
 		<label>
 			<font-awesome-icon :icon="props.icon" />
 		</label>
-		<input v-model="model" @input="onInput" :type="type" :placeholder="props.placeholder" :required="props.required" />
-		<button v-if="props.type == InputTypes.PASSWORD" @click.prevent="changeVisibilityPassword" class="visibility-password">
+		<input v-model="model" :type="type" :placeholder="props.placeholder" :required="props.required" @input="onInput" />
+		<button v-if="props.type == InputTypes.PASSWORD" class="visibility-password" @click.prevent="changeVisibilityPassword">
 			<font-awesome-icon :icon="type == InputTypes.PASSWORD ? 'eye' : 'eye-slash'" />
 		</button>
 	</div>
