@@ -1,6 +1,6 @@
 # Mercadlo
 
-Mercadlo is an app to create shopping lists. Developed in Vue 3 and Express
+Mercadlo is an app to create shopping lists. Developed in Vue 3 and Express.
 
 ## Installation
 
