@@ -13,6 +13,9 @@ export const handleToken: NavigationGuard = async (
 		} else if (token && to.path === "/login") {
 			return next("/");
 		}
+		if (to.path == "/login") {
+			localStorage.removeItem("user");
+		}
 		next();
 	} catch (e) {
 		console.log(e);
