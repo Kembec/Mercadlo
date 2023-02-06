@@ -1,14 +1,14 @@
 import * as dotenv from "dotenv";
-import express from "express";
+const express = require("express");
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import { handle404 } from "./src/middleware/handle404";
-import { handleCORS } from "./src/middleware/handleCORS";
-import { handleErrors } from "./src/middleware/handleErrors";
-import { listRoutes } from "./src/routes/list.routes";
-import { productRoutes } from "./src/routes/product.routes";
-import { userRoutes } from "./src/routes/user.routes";
+import { handle404 } from "./middleware/handle404";
+import { handleCORS } from "./middleware/handleCORS";
+import { handleErrors } from "./middleware/handleErrors";
+import { listRoutes } from "./routes/list.routes";
+import { productRoutes } from "./routes/product.routes";
+import { userRoutes } from "./routes/user.routes";
 
 dotenv.config();
 const result = dotenv.config();

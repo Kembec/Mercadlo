@@ -1,6 +1,6 @@
 import request from "supertest";
 import { User } from "../models/user.model";
-import { app } from "../../app";
+import { app } from "../app";
 import { INewUser } from "../interfaces/models/user.interface";
 
 describe("User routes", () => {

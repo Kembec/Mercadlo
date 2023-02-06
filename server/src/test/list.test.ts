@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import request from "supertest";
-import { app } from "../../app";
+import { app } from "../app";
 import { IListModel, INewList } from "../interfaces/models/list.interface";
 import { IUserModel } from "../interfaces/models/user.interface";
 import { List } from "../models/list.model";
