@@ -1,11 +1,19 @@
 import { Request, Response } from "express";
+
 import { List } from "../models/list.model";
+
+interface ListRequest extends Request {
+	body: {
+		user_id: string;
+		name: string;
+	};
+}
 
 export class ListController {
 	// Get all lists
-	public static async getAll(req: Request, res: Response) {
+	public static async getAll(req: ListRequest, res: Response): Promise<void> {
 		try {
-			const lists = await List.find({user_id: req.body.user_id});
+			const lists = await List.find({ user_id: req.body.user_id });
 			res.status(200).json(lists);
 		} catch (err) {
 			res.status(500).json({ message: "Error getting the lists" });
@@ -13,11 +21,13 @@ export class ListController {
 	}
 
 	// Get a list by ID
-	public static async getById(req: Request, res: Response) {
+	public static async getById(req: ListRequest, res: Response): Promise<void> {
 		try {
 			const list = await List.findById(req.params.id);
 			if (!list) {
-				return res.status(404).json({ message: "List not found" });
+				res.status(404).json({ message: "List not found" });
+
+				return;
 			}
 			res.status(200).json(list);
 		} catch (err) {
@@ -26,7 +36,7 @@ export class ListController {
 	}
 
 	// Add a new list
-	public static async add(req: Request, res: Response) {
+	public static async add(req: ListRequest, res: Response): Promise<void> {
 		try {
 			const newList = new List({
 				user_id: req.body.user_id,
@@ -40,7 +50,7 @@ export class ListController {
 	}
 
 	// Update a list
-	public static async update(req: Request, res: Response) {
+	public static async update(req: ListRequest, res: Response): Promise<void> {
 		try {
 			const updatedList = await List.findByIdAndUpdate(
 				req.params.id,
@@ -50,7 +60,9 @@ export class ListController {
 				{ new: true, runValidators: true }
 			);
 			if (!updatedList) {
-				return res.status(404).json({ message: "List not found" });
+				res.status(404).json({ message: "List not found" });
+
+				return;
 			}
 			res.status(200).json(updatedList);
 		} catch (err) {
@@ -59,11 +71,13 @@ export class ListController {
 	}
 
 	// Delete a list
-	public static async delete(req: Request, res: Response) {
+	public static async delete(req: Request, res: Response): Promise<void> {
 		try {
 			const deletedList = await List.findByIdAndDelete(req.params.id);
 			if (!deletedList) {
-				return res.status(404).json({ message: "List not found" });
+				res.status(404).json({ message: "List not found" });
+
+				return;
 			}
 			res.status(200).json({ message: "List deleted" });
 		} catch (err) {

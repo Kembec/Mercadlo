@@ -1,8 +1,10 @@
-import * as dotenv from "dotenv";
-const express = require("express");
-import mongoose from "mongoose";
+/* eslint-disable no-console */
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import * as dotenv from "dotenv";
+import express from "express";
+import mongoose from "mongoose";
+
 import { handle404 } from "./middleware/handle404";
 import { handleCORS } from "./middleware/handleCORS";
 import { handleErrors } from "./middleware/handleErrors";
@@ -21,7 +23,14 @@ export const app = express();
 
 // Connect to the database
 mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_URI ?? "");
+mongoose
+	.connect(process.env.MONGO_URI ?? "")
+	.then(() => {
+		console.log("Database connected successfully");
+	})
+	.catch((error: Error) => {
+		console.error("Database connection error:", error);
+	});
 
 // Enable body parser to parse request body
 app.use(bodyParser.urlencoded({ extended: true }));

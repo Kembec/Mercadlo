@@ -1,23 +1,38 @@
-import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import { User } from "../models/user.model";
-import { validateRegisterInput, validateLoginInput } from "../validators/user.validator";
+import { Request, Response } from "express";
+
 import useCreateToken from "../composables/useCreateToken";
+import { User } from "../models/user.model";
+import { validateLoginInput, validateRegisterInput } from "../validators/user.validator";
+
+interface UserRequest extends Request {
+	body: {
+		user_id: string;
+		name: string;
+		email: string;
+		password: string;
+	};
+}
 
 export class UserController {
-	// Register a new user
-	public static async register(req: Request, res: Response) {
+	public static async register(req: UserRequest, res: Response): Promise<void> {
 		// Validate request body
-		const { errors, isValid } = validateRegisterInput(req.body);
+		const { errors, isValid } = validateRegisterInput<typeof req.body>(req.body);
+
 		if (!isValid) {
-			return res.status(400).json(errors);
+			res.status(400).json(errors);
+
+			return;
 		}
 
 		// Check if the email is already in use
 		const emailExists = await User.findOne({ email: req.body.email });
 		if (emailExists) {
 			errors.email = "Email already exists";
-			return res.status(400).json(errors);
+
+			res.status(400).json(errors);
+
+			return;
 		}
 
 		// Hash the password
@@ -25,7 +40,6 @@ export class UserController {
 		const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
 		// Create a new user
-
 		try {
 			const newUser = new User({
 				name: req.body.name,
@@ -42,23 +56,29 @@ export class UserController {
 	}
 
 	// Login a user
-	public static async login(req: Request, res: Response) {
+	public static async login(req: UserRequest, res: Response): Promise<void> {
 		// Validate request body
 		const { errors, isValid } = validateLoginInput(req.body);
 		if (!isValid) {
-			return res.status(400).json(errors);
+			res.status(400).json(errors);
+
+			return;
 		}
 
 		// Check if the email exists
 		const user = await User.findOne({ email: req.body.email });
 		if (!user) {
-			return res.status(404).json({ message: "Invalid email or password" });
+			res.status(404).json({ message: "Invalid email or password" });
+
+			return;
 		}
 
 		// Check if the password is correct
 		const isMatch = await bcrypt.compare(req.body.password, user.password);
 		if (!isMatch) {
-			return res.status(404).json({ message: "Invalid email or password" });
+			res.status(404).json({ message: "Invalid email or password" });
+
+			return;
 		}
 
 		// Create a JWT
@@ -73,13 +93,15 @@ export class UserController {
 			_id: user._id,
 			name: user.name,
 			email: user.email,
-		}
+		};
 		res.status(200).json(data);
 	}
+
 	// Logout a user
-	public static logout(req: Request, res: Response) {
+	public static logout(req: UserRequest, res: Response): void {
 		res.clearCookie("token");
 		res.clearCookie("_token");
+
 		res.status(200).json({ message: "Logout successful" });
 	}
 }

@@ -1,8 +1,9 @@
 import { Router } from "express";
+
 import { ListController } from "../controllers/list.controller";
-import { validateId } from '../middleware/handleValidateId';
-import { validateList } from '../middleware/handleValidateList';
-import { validateToken } from '../middleware/handleValidateToken';
+import { validateId } from "../middleware/handleValidateId";
+import { validateList } from "../middleware/handleValidateList";
+import { validateToken } from "../middleware/handleValidateToken";
 
 const router = Router();
 

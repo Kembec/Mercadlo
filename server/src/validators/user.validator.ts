@@ -1,11 +1,15 @@
 import Validator from "validator";
 
-export function validateRegisterInput(data: any) {
-	let errors: any = {};
-	data.email = !data.email ? "" : data.email;
-	data.name = !data.name ? "" : data.name;
-	data.password = !data.password ? "" : data.password;
-	data.password2 = !data.password2 ? "" : data.password2;
+interface Errors {
+	name?: string;
+	email?: string;
+	password?: string;
+}
+
+export function validateRegisterInput<T extends { [key: string]: string }>(
+	data: T
+): { errors: Errors; isValid: boolean } {
+	const errors: Errors = {};
 
 	if (Validator.isEmpty(data.name)) {
 		errors.name = "Name is required";
@@ -25,16 +29,15 @@ export function validateRegisterInput(data: any) {
 	if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
 		errors.password = "Password must be at least 6 characters";
 	}
+
 	return {
 		errors,
 		isValid: Object.keys(errors).length === 0,
 	};
 }
 
-export function validateLoginInput(data: any) {
-	let errors: any = {};
-	data.email = !data.email ? "" : data.email;
-	data.password = !data.password ? "" : data.password;
+export function validateLoginInput<T extends { [key: string]: string }>(data: T): { errors: Errors; isValid: boolean } {
+	const errors: Errors = {};
 
 	if (Validator.isEmpty(data.email)) {
 		errors.email = "Email is required";
@@ -45,6 +48,7 @@ export function validateLoginInput(data: any) {
 	if (Validator.isEmpty(data.password)) {
 		errors.password = "Password is required";
 	}
+
 	return {
 		errors,
 		isValid: Object.keys(errors).length === 0,

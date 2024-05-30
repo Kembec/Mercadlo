@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import mongoose from "mongoose";
 import request from "supertest";
+
 import { app } from "../app";
+import useCreateToken from "../composables/useCreateToken";
 import { IListModel, INewList } from "../interfaces/models/list.interface";
 import { IUserModel } from "../interfaces/models/user.interface";
 import { List } from "../models/list.model";
-import { User } from "../models/user.model"
-import useCreateToken from "../composables/useCreateToken";
+import { User } from "../models/user.model";
 
 describe("List routes", () => {
 	let user: IUserModel;
@@ -36,8 +39,7 @@ describe("List routes", () => {
 			_id: list._id.toString(),
 			name: list.name,
 			user_id: list.user_id.toString(),
-		}
-
+		};
 	});
 
 	afterAll(async () => {
@@ -47,7 +49,7 @@ describe("List routes", () => {
 
 	describe("GET /lists", () => {
 		it("should return a list of lists", async () => {
-			const res = await request(app).get("/lists").set('Cookie', `token=${TOKEN}`);
+			const res = await request(app).get("/lists").set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(200);
 			expect(res.body).toEqual([newList]);
@@ -56,15 +58,15 @@ describe("List routes", () => {
 
 	describe("GET /lists/:id", () => {
 		it("should return a single list", async () => {
-			const res = await request(app).get(`/lists/${list._id}`).set('Cookie', `token=${TOKEN}`);
+			const res = await request(app).get(`/lists/${list._id}`).set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(200);
 			expect(res.body).toEqual(newList);
 		});
 
 		it("should return a 404 if the list is not found", async () => {
-			const randomId = new mongoose.Types.ObjectId();
-			const res = await request(app).get(`/lists/${randomId}`).set('Cookie', `token=${TOKEN}`);
+			const randomId = new mongoose.Types.ObjectId().toString();
+			const res = await request(app).get(`/lists/${randomId}`).set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({ message: "List not found" });
@@ -77,7 +79,8 @@ describe("List routes", () => {
 				.post("/lists")
 				.send({
 					name: "Weekend list",
-				}).set('Cookie', `token=${TOKEN}`);
+				})
+				.set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(201);
 			expect(res.body).toEqual({
@@ -89,7 +92,7 @@ describe("List routes", () => {
 		});
 
 		it("should return a 422 if the list is invalid", async () => {
-			const res = await request(app).post("/lists").send({}).set('Cookie', `token=${TOKEN}`);
+			const res = await request(app).post("/lists").send({}).set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(422);
 			expect(res.body).toEqual({ message: "Invalid list" });
@@ -102,7 +105,8 @@ describe("List routes", () => {
 				.put(`/lists/${newList._id}`)
 				.send({
 					name: "Weekly grocery list",
-				}).set('Cookie', `token=${TOKEN}`);
+				})
+				.set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(200);
 			expect(res.body).toEqual({
@@ -114,21 +118,20 @@ describe("List routes", () => {
 		});
 
 		it("should return a 404 if the list is not found", async () => {
-			const randomId = new mongoose.Types.ObjectId();
+			const randomId = new mongoose.Types.ObjectId().toString();
 			const res = await request(app)
 				.put(`/lists/${randomId}`)
 				.send({
 					name: "Weekly grocery list",
-				}).set('Cookie', `token=${TOKEN}`);
+				})
+				.set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({ message: "List not found" });
 		});
 
 		it("should return a 422 if the list is invalid", async () => {
-			const res = await request(app)
-				.put(`/lists/${list._id}`)
-				.send({}).set('Cookie', `token=${TOKEN}`);
+			const res = await request(app).put(`/lists/${list._id}`).send({}).set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(422);
 			expect(res.body).toEqual({ message: "Invalid list" });
@@ -137,15 +140,15 @@ describe("List routes", () => {
 
 	describe("DELETE /lists/:id", () => {
 		it("should delete an existing list", async () => {
-			const res = await request(app).delete(`/lists/${list._id}`).set('Cookie', `token=${TOKEN}`);
+			const res = await request(app).delete(`/lists/${list._id}`).set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(200);
-			expect(res.body).toEqual({message: "List deleted"});
-		})
+			expect(res.body).toEqual({ message: "List deleted" });
+		});
 
 		it("should return a 404 if the list is not found", async () => {
-			const randomId = new mongoose.Types.ObjectId();
-			const res = await request(app).delete(`/lists/${randomId}`).set('Cookie', `token=${TOKEN}`);
+			const randomId = new mongoose.Types.ObjectId().toString();
+			const res = await request(app).delete(`/lists/${randomId}`).set("Cookie", `token=${TOKEN}`);
 
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({ message: "List not found" });

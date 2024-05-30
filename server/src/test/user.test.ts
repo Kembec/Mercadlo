@@ -1,12 +1,13 @@
 import request from "supertest";
-import { User } from "../models/user.model";
+
 import { app } from "../app";
 import { INewUser } from "../interfaces/models/user.interface";
+import { User } from "../models/user.model";
 
 describe("User routes", () => {
 	let newUser: INewUser;
 
-	beforeAll(async () => {
+	beforeAll(() => {
 		newUser = {
 			name: "Test2",
 			email: "test2@test.com",
@@ -72,8 +73,8 @@ describe("User routes", () => {
 			});
 
 			expect(res.status).toBe(200);
-			expect(res.body).toEqual({ 
-				token: expect.any(String),
+			expect(res.body).toEqual({
+				token: String,
 			});
 		});
 

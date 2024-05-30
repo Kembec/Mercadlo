@@ -1,18 +1,19 @@
 {
 	"compilerOptions": {
+        "strictNullChecks": true,
         "module": "commonjs",
         "esModuleInterop": true,
         "target": "es6",
-        "noImplicitAny": true,
+        "strict": true,
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "./dist",
 		"rootDir": "./src", 
         "baseUrl": ".",
         "paths": {
-            "*": [
-                "node_modules/*"
-            ]
+            "@interfaces/*": [
+                "./src/interfaces/*"
+            ],
         }
 	},
 	"include": ["src/**/*"]

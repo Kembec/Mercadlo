@@ -1,0 +1,18 @@
+{
+	"extends": ["@kembec/eslint-config/typescript"],
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx"],
+			"parserOptions": {
+				"project": ["./tsconfig.json"]
+			}
+		}
+	],
+	"settings": {
+		"import/resolver": {
+			"typescript": {
+				"project": "./tsconfig.json"
+			}
+		}
+	}
+}

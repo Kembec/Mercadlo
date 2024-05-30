@@ -1,9 +1,18 @@
 import { Request, Response } from "express";
+
 import { Product } from "../models/product.model";
+
+interface ProductRequest extends Request {
+	body: {
+		user_id: string;
+		name: string;
+		price: number;
+	};
+}
 
 export class ProductController {
 	// Get all products
-	public static async getAll(req: Request, res: Response) {
+	public static async getAll(req: ProductRequest, res: Response): Promise<void> {
 		try {
 			const products = await Product.find({ list_id: req.params.list_id });
 			res.status(200).json(products);
@@ -13,20 +22,22 @@ export class ProductController {
 	}
 
 	// Get a product by ID
-	public static async getById(req: Request, res: Response) {
+	public static async getById(req: ProductRequest, res: Response): Promise<void> {
 		try {
 			const product = await Product.findById(req.params.id);
-			if(!product) {
-				return res.status(404).json({ message: "Product not found" });
+			if (!product) {
+				res.status(404).json({ message: "Product not found" });
+
+				return;
 			}
 			res.status(200).json(product);
-		} catch (err: any) {
+		} catch (err) {
 			res.status(500).json({ message: "Error getting the product" });
 		}
 	}
 
 	// Add a new product
-	public static async add(req: Request, res: Response) {
+	public static async add(req: ProductRequest, res: Response): Promise<void> {
 		try {
 			const newProduct = new Product({
 				name: req.body.name,
@@ -41,7 +52,7 @@ export class ProductController {
 	}
 
 	// Update a product
-	public static async update(req: Request, res: Response) {
+	public static async update(req: ProductRequest, res: Response): Promise<void> {
 		try {
 			const updatedProduct = await Product.findByIdAndUpdate(
 				req.params.id,
@@ -52,7 +63,9 @@ export class ProductController {
 				{ new: true, runValidators: true }
 			);
 			if (!updatedProduct) {
-				return res.status(404).json({ message: 'Product not found' });
+				res.status(404).json({ message: "Product not found" });
+
+				return;
 			}
 			res.status(200).json(updatedProduct);
 		} catch (err) {
@@ -61,11 +74,13 @@ export class ProductController {
 	}
 
 	// Delete a product
-	public static async delete(req: Request, res: Response) {
+	public static async delete(req: ProductRequest, res: Response): Promise<void> {
 		try {
 			const product = await Product.findByIdAndDelete(req.params.id);
-			if(!product) {
-				return res.status(404).json({ message: "Product not found" });
+			if (!product) {
+				res.status(404).json({ message: "Product not found" });
+
+				return;
 			}
 			res.status(200).json({ message: "Product deleted" });
 		} catch (err) {

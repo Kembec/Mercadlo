@@ -1,22 +1,33 @@
-import { List } from "../models/list.model";
-import { Request, Response, NextFunction } from "express";
+import { RequestWithId } from "@interfaces/request_with_id.interface";
+import { NextFunction, Response } from "express";
 import { Types } from "mongoose";
 
-export async function validateList(req: Request, res: Response, next: NextFunction) {
+import { List } from "../models/list.model";
+
+export async function validateList(req: RequestWithId, res: Response, next: NextFunction): Promise<void> {
 	try {
-        if(!req.params.list_id) {
-            return next();
-        }
-        if(!Types.ObjectId.isValid(req.params.list_id.toString())) {
-			return res.status(404).json({ message: "The list is invalid" });
-        }
-        const list = await List.find({ user_id: req.body.user_id, _id: req.params.list_id });
-        if(!list || list.length === 0) {
-			return res.status(404).json({ message: "List not found" });
-        }
+		if (!req.params.list_id) {
+			next();
+
+			return;
+		}
+		if (!Types.ObjectId.isValid(req.params.list_id.toString())) {
+			res.status(404).json({ message: "The list is invalid" });
+
+			return;
+		}
+		const list = await List.find({ user_id: req.body.user_id, _id: req.params.list_id });
+		if (list.length === 0) {
+			res.status(404).json({ message: "List not found" });
+
+			return;
+		}
 		next();
 	} catch (err) {
-		console.log(err);
-		return res.status(401).json({ message: "Unauthorized" });
+		console.error(err);
+
+		res.status(401).json({ message: "Unauthorized" });
+
+		return;
 	}
 }

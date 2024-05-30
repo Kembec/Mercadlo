@@ -1,21 +1,24 @@
-import { Request, Response, NextFunction } from "express";
-import { Types } from "mongoose";
+import { RequestWithId } from "@interfaces/request_with_id.interface";
+import { NextFunction, Response } from "express";
+
 import useVerifyToken from "../composables/useVerifyToken";
 
-export async function validateToken (req: Request, res: Response, next: NextFunction) {
+export function validateToken(req: RequestWithId, res: Response, next: NextFunction): void | Response {
 	try {
-		const token = req.cookies.token;
-		if (!token || token == undefined) {
+		const token = req.cookies.token as string;
+		if (!token) {
 			return res.status(401).json({ message: "Unauthorized" });
 		}
-		let user = await useVerifyToken(token);
-        if(typeof user == "string" || !user.id || !Types.ObjectId.isValid(user.id.toString())) {
+
+		const user = useVerifyToken(token);
+		if (typeof user === "string" || !user.id) {
 			return res.status(401).json({ message: "Unauthorized" });
-        }
-		req.body.user_id = user.id;
+		}
+
+		req.body.user_id = user.id as string;
+
 		next();
 	} catch (err) {
-		console.log(err);
 		return res.status(401).json({ message: "Unauthorized" });
 	}
 }

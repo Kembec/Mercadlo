@@ -1,11 +1,11 @@
 import { Router } from "express";
+
 import { ProductController } from "../controllers/product.controller";
-import { validateId } from '../middleware/handleValidateId';
-import { validateList } from '../middleware/handleValidateList';
-import { validateToken } from '../middleware/handleValidateToken';
+import { validateId } from "../middleware/handleValidateId";
+import { validateList } from "../middleware/handleValidateList";
+import { validateToken } from "../middleware/handleValidateToken";
 
 const router = Router();
-
 
 // Use Middlewares
 router.use(validateToken);

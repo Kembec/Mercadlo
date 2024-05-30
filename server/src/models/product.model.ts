@@ -1,9 +1,9 @@
 import mongoose, { Model } from "mongoose";
+
 import { IProductModel } from "../interfaces/models/product.interface";
 
-
 const ProductModel = new mongoose.Schema({
-	list_id: { 
+	list_id: {
 		ref: "List",
 		required: true,
 		type: mongoose.Schema.Types.ObjectId,

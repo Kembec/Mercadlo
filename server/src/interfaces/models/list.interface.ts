@@ -1,5 +1,4 @@
 import Document from "mongoose";
-import { IProductModel } from "./product.interface";
 
 export interface IListModel extends Document {
 	__v: number;
